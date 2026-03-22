@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ThreadRush">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#075E54">
+<meta name="description" content="ThreadRush – Try clothes at home. Delivered from local stores in 2 hours.">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="data:application/json,{%22name%22:%22ThreadRush%22,%22short_name%22:%22ThreadRush%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23075E54%22,%22theme_color%22:%22%23075E54%22}">
+
+<!-- iOS Icons -->
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" sizes="152x152" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+
+<title>ThreadRush – Fashion Delivered in 2 Hours</title>
+
+<style>
+:root {
+  --green: #25D366;
+  --green-dark: #128C7E;
+  --green-light: #DCF8C6;
+  --teal: #075E54;
+  --bg: #ECE5DD;
+  --msg-out: #DCF8C6;
+  --msg-in: #FFFFFF;
+  --text: #111B21;
+  --subtext: #667781;
+  --accent: #FF6B35;
+  --gold: #F4A923;
+  --header-bg: #075E54;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: #1a1a2e;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── INSTALL BANNER (iPhone) ── */
+#install-banner {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #1c1c1e;
+  color: white;
+  padding: 16px 20px calc(16px + var(--safe-bottom));
+  z-index: 9999;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.install-banner-inner { display: flex; align-items: center; gap: 14px; }
+.install-icon { width: 52px; height: 52px; background: linear-gradient(135deg, var(--green), var(--teal)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.install-text { flex: 1; }
+.install-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.install-sub { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+.install-close { color: rgba(255,255,255,0.5); font-size: 22px; cursor: pointer; padding: 4px; flex-shrink: 0; }
+
+.install-steps {
+  margin-top: 14px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.8;
+}
+
+/* ── LANDING ── */
+#landing {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #0d2137 0%, #0f3460 35%, #1a1a2e 100%);
+  padding: 40px 24px calc(40px + var(--safe-bottom));
+  text-align: center;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  overflow-y: auto;
+}
+
+#landing.exit { opacity: 0; transform: scale(0.96) translateY(-20px); pointer-events: none; }
+
+.logo-wrap {
+  width: 96px; height: 96px;
+  background: linear-gradient(135deg, var(--green) 0%, var(--teal) 100%);
+  border-radius: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 46px;
+  box-shadow: 0 0 0 0 rgba(37,211,102,0.5);
+  animation: logoPulse 2.5s infinite;
+  margin-bottom: 22px;
+}
+
+@keyframes logoPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4), 0 20px 60px rgba(37,211,102,0.3); }
+  50% { box-shadow: 0 0 0 16px rgba(37,211,102,0), 0 20px 80px rgba(37,211,102,0.5); }
+}
+
+.brand { font-size: 46px; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg, #ffffff 30%, var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.tagline { font-size: 14px; color: rgba(255,255,255,0.5); letter-spacing: 3px; text-transform: uppercase; margin: 6px 0 32px; }
+
+.feat-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+.pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; padding: 7px 16px; font-size: 13px; color: rgba(255,255,255,0.8); backdrop-filter: blur(8px); }
+
+.hero-desc { color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.7; max-width: 300px; margin: 0 auto 36px; }
+
+.cta-btn {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: white; border: none;
+  padding: 17px 44px; border-radius: 50px;
+  font-size: 17px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 12px 40px rgba(37,211,102,0.45);
+  display: flex; align-items: center; gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+.cta-btn:active { transform: scale(0.97); }
+
+.pwa-hint { margin-top: 22px; color: rgba(255,255,255,0.3); font-size: 12px; display: flex; align-items: center; gap: 6px; }
+
+/* ── APP SHELL ── */
+#app {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  height: -webkit-fill-available;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg);
+}
+#app.show { display: flex; }
+
+/* ── OFFER BAR ── */
+.offer-bar {
+  background: var(--teal);
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  font-size: 12px;
+  padding: 7px 12px;
+  padding-top: calc(7px + var(--safe-top));
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── HEADER ── */
+.chat-header {
+  background: var(--header-bg);
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.h-back { color: rgba(255,255,255,0.8); font-size: 24px; cursor: pointer; line-height: 1; padding: 4px; }
+.h-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, var(--green), #00a884); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.h-info { flex: 1; min-width: 0; }
+.h-name { color: white; font-weight: 600; font-size: 16px; }
+.h-status { color: rgba(255,255,255,0.65); font-size: 12px; margin-top: 1px; }
+.h-acts { display: flex; gap: 14px; }
+.h-acts span { color: rgba(255,255,255,0.75); font-size: 20px; cursor: pointer; }
+
+/* ── MESSAGES ── */
+.msgs {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23b5a99a' fill-opacity='0.12'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10C10 20 5.523 15.523 5.523 10S9.477 0 15 0'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-overflow-scrolling: touch;
+}
+.msgs::-webkit-scrollbar { width: 0; }
+
+.date-sep { text-align: center; margin: 10px 0; }
+.date-sep span { background: rgba(225,210,190,0.75); padding: 4px 12px; border-radius: 7px; font-size: 12px; color: #6b5e52; }
+
+/* Bubbles */
+.mw { display: flex; flex-direction: column; animation: msgIn 0.25s ease forwards; opacity: 0; }
+@keyframes msgIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+.mw.out { align-items: flex-end; }
+.mw.in  { align-items: flex-start; }
+
+.bub { max-width: 84%; padding: 8px 11px 6px; border-radius: 8px; font-size: 14.5px; line-height: 1.55; word-break: break-word; }
+.bub.in  { background: var(--msg-in); border-top-left-radius: 0; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.bub.out { background: var(--msg-out); border-top-right-radius: 0; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+
+.bub-time { font-size: 11px; color: var(--subtext); margin-top: 2px; display: flex; align-items: center; gap: 3px; }
+.mw.out .bub-time { justify-content: flex-end; }
+.tick { color: #53bdeb; }
+
+/* Typing */
+.typing-bub { background: var(--msg-in); border-radius: 8px; border-top-left-radius: 0; padding: 12px 16px; width: fit-content; display: flex; gap: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.td { width: 8px; height: 8px; background: var(--subtext); border-radius: 50%; animation: tdBounce 1.2s infinite; }
+.td:nth-child(2) { animation-delay: .2s; }
+.td:nth-child(3) { animation-delay: .4s; }
+@keyframes tdBounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
+
+/* ── CARDS & COMPONENTS ── */
+
+/* Store grid */
+.store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; max-width: 85%; }
+.sc { background: white; border-radius: 13px; overflow: hidden; cursor: pointer; border: 2px solid transparent; box-shadow: 0 2px 8px rgba(0,0,0,0.09); transition: border-color 0.15s, transform 0.15s; }
+.sc:active { transform: scale(0.97); border-color: var(--green); }
+.sc-img { height: 68px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.sc-body { padding: 8px 10px 10px; }
+.sc-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.sc-type { font-size: 11px; color: var(--subtext); margin-top: 2px; line-height: 1.3; }
+.sc-tag { display: inline-block; margin-top: 5px; background: #fff3e0; color: var(--accent); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+
+/* Category list */
+.cat-list { display: flex; flex-direction: column; gap: 7px; max-width: 86%; }
+.cb { background: white; border: none; border-radius: 11px; padding: 11px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.09); transition: background 0.15s, border-left 0.15s; font-family: inherit; width: 100%; text-align: left; -webkit-appearance: none; }
+.cb:active { background: #f0fdf4; border-left: 3px solid var(--green); }
+.cb-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.cb-info { flex: 1; }
+.cb-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.cb-count { font-size: 11px; color: var(--subtext); margin-top: 2px; }
+.cb-arrow { color: #ccc; font-size: 18px; }
+
+/* Products */
+.prod-list { display: flex; flex-direction: column; gap: 9px; max-width: 88%; }
+.pc { background: white; border-radius: 14px; overflow: hidden; cursor: pointer; border: 2.5px solid transparent; box-shadow: 0 2px 10px rgba(0,0,0,0.09); transition: border-color 0.2s, transform 0.15s; }
+.pc.sel { border-color: var(--green); }
+.pc:active { transform: scale(0.99); }
+.pc-img { height: 130px; display: flex; align-items: center; justify-content: center; position: relative; }
+.pc-emoji { font-size: 68px; }
+.pc-badge { position: absolute; top: 8px; right: 8px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+.pc-check { position: absolute; top: 8px; left: 8px; width: 26px; height: 26px; background: var(--green); border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 900; }
+.pc.sel .pc-check { display: flex; }
+.pc-info { padding: 10px 12px 12px; }
+.pc-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.pc-sub { font-size: 12px; color: var(--subtext); margin: 3px 0 6px; }
+.pc-price { font-size: 16px; font-weight: 800; color: var(--green-dark); }
+.pc-orig { font-size: 12px; color: var(--subtext); text-decoration: line-through; margin-left: 6px; }
+.pc-off { background: #e8f5e9; color: #2e7d32; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-left: 4px; }
+
+/* Quick replies */
+.qrs { display: flex; flex-wrap: wrap; gap: 8px; max-width: 90%; }
+.qr { background: white; border: 1.5px solid var(--green); color: var(--green-dark); padding: 8px 16px; border-radius: 22px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit; -webkit-appearance: none; }
+.qr:active { background: var(--green); color: white; transform: scale(0.97); }
+
+/* Cart */
+.cart-card { background: white; border-radius: 14px; padding: 14px; max-width: 88%; box-shadow: 0 2px 10px rgba(0,0,0,0.09); }
+.cart-hd { font-size: 14px; font-weight: 700; color: var(--text); border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.ci { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f8f8f8; }
+.ci:last-of-type { border: none; }
+.ci-em { font-size: 26px; width: 38px; text-align: center; }
+.ci-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.ci-price { font-size: 13px; font-weight: 700; color: var(--green-dark); margin-top: 2px; }
+.cart-total { background: #f0fdf4; border-radius: 9px; padding: 10px 12px; margin-top: 10px; display: flex; justify-content: space-between; font-weight: 700; font-size: 15px; }
+.cart-note { text-align: center; font-size: 11px; color: var(--subtext); margin-top: 8px; }
+
+/* Counter + confirm */
+.sel-counter { background: var(--green); color: white; border-radius: 22px; padding: 7px 18px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; transition: background 0.3s; }
+.confirm-btn { background: linear-gradient(135deg, var(--green), var(--green-dark)); color: white; border: none; border-radius: 13px; padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s, transform 0.15s; -webkit-appearance: none; }
+.confirm-btn:active { transform: scale(0.98); }
+.confirm-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Order tracker */
+.tracker { background: white; border-radius: 14px; padding: 16px; max-width: 88%; box-shadow: 0 2px 10px rgba(0,0,0,0.09); }
+.tr-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.tr-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--green), var(--green-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.tr-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.tr-sub { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+.prog-bar { background: #e8f5e9; border-radius: 4px; height: 5px; margin-bottom: 14px; overflow: hidden; }
+.prog-fill { background: linear-gradient(90deg, var(--green), #00c853); height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+.step { display: flex; gap: 12px; padding: 6px 0; }
+.step-ind { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.sdot { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.sdot.done { background: var(--green); color: white; }
+.sdot.active { background: var(--accent); color: white; animation: dotPulse 1s infinite; }
+.sdot.pending { background: #e5e5e5; color: #aaa; }
+@keyframes dotPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+.sline { width: 2px; flex: 1; min-height: 16px; background: #e5e5e5; margin: 2px 0; }
+.sline.done { background: var(--green); }
+.s-name { font-size: 13px; font-weight: 600; color: var(--text); padding-top: 1px; }
+.s-det { font-size: 11px; color: var(--subtext); margin-top: 2px; line-height: 1.4; }
+
+/* Delivery banner */
+.del-banner { background: linear-gradient(135deg, var(--accent), #ff8c42); color: white; border-radius: 12px; padding: 13px 14px; max-width: 88%; display: flex; align-items: center; gap: 12px; box-shadow: 0 3px 12px rgba(255,107,53,0.35); }
+.del-em { font-size: 30px; }
+.del-title { font-size: 14px; font-weight: 700; }
+.del-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+/* Info hint */
+.hint { background: #fffde7; border-left: 3px solid var(--gold); border-radius: 0 9px 9px 0; padding: 10px 12px; font-size: 13px; color: #5d4037; max-width: 88%; line-height: 1.5; }
+
+/* ── INPUT BAR ── */
+.input-bar {
+  background: var(--bg);
+  padding: 8px 10px;
+  padding-bottom: calc(8px + var(--safe-bottom));
+  display: flex; align-items: center; gap: 8px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  flex-shrink: 0;
+}
+.em-btn { width: 40px; height: 40px; background: none; border: none; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.inp { flex: 1; background: white; border: none; border-radius: 24px; padding: 10px 16px; font-size: 15px; font-family: inherit; outline: none; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); min-width: 0; }
+.inp::placeholder { color: var(--subtext); }
+.send-btn { width: 46px; height: 46px; background: var(--green); border: none; border-radius: 50%; color: white; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 10px rgba(37,211,102,0.4); transition: transform 0.15s; -webkit-appearance: none; }
+.send-btn:active { transform: scale(0.93); }
+</style>
+</head>
+<body>
+
+<!-- iOS Install Banner -->
+<div id="install-banner">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+    <span class="install-close" onclick="dismissBanner()">×</span>
+  </div>
+  <div class="install-banner-inner">
+    <div class="install-icon">🧵</div>
+    <div class="install-text">
+      <div class="install-title">Add ThreadRush to Home Screen</div>
+      <div class="install-sub">Install as an app — works offline, no App Store needed!</div>
+    </div>
+  </div>
+  <div class="install-steps">
+    1. Tap the <strong>Share button</strong> (□↑) at the bottom of Safari<br>
+    2. Scroll down and tap <strong>"Add to Home Screen"</strong><br>
+    3. Tap <strong>"Add"</strong> — done! 🎉
+  </div>
+</div>
+
+<!-- Landing -->
+<div id="landing">
+  <div class="logo-wrap">🧵</div>
+  <div class="brand">ThreadRush</div>
+  <div class="tagline">Try at home · Keep what you love</div>
+  <div class="feat-pills">
+    <span class="pill">👗 1000+ Sarees</span>
+    <span class="pill">⏱️ 2-Hour Delivery</span>
+    <span class="pill">🏪 Local Stores</span>
+    <span class="pill">👟 Shoes Too</span>
+    <span class="pill">✅ Try 3, Keep 1</span>
+  </div>
+  <div class="hero-desc">Shop from Pothys, Chennai Silks, Hotspot Menswear & local stores. Delivered in 2 hours. Try at home, pay only for what you keep.</div>
+  <button class="cta-btn" onclick="launchApp()">
+    <span>💬</span> Start Shopping
+  </button>
+  <div class="pwa-hint">📲 Add to Home Screen for app experience</div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <div class="offer-bar">🎉 <b>Today:</b> Free delivery above ₹999 · Code THREAD10</div>
+  <div class="chat-header">
+    <span class="h-back" onclick="goHome()">←</span>
+    <div class="h-avatar">🧵</div>
+    <div class="h-info">
+      <div class="h-name">ThreadRush AI 🤖</div>
+      <div class="h-status">🟢 Online · Replies instantly</div>
+    </div>
+    <div class="h-acts">
+      <span>📹</span><span>📞</span>
+    </div>
+  </div>
+  <div class="msgs" id="msgs">
+    <div class="date-sep"><span>Today</span></div>
+  </div>
+  <div class="input-bar">
+    <button class="em-btn">😊</button>
+    <input class="inp" id="inp" placeholder="Type a message…" onkeydown="onKey(event)">
+    <button class="send-btn" onclick="onSend()">➤</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+const STORES = [
+  { id:'pothys',       name:'Pothys',           type:'Premium Sarees & Silk',    emoji:'🏛️', tag:'Premium', bg:'#fff3e0', cats:['Sarees','Dress Materials','Men\'s Wear','Kids Wear'] },
+  { id:'chennaisilks', name:'Chennai Silks',     type:'Silk & Traditional Wear',  emoji:'✨', tag:'Popular', bg:'#fce4ec', cats:['Silk Sarees','Cotton Sarees','Lehengas','Blouses'] },
+  { id:'hotspot',      name:'Hotspot Menswear',  type:'Men\'s Fashion',           emoji:'👔', tag:'Trending',bg:'#e3f2fd', cats:['Shirts','Pants','Formals','T-Shirts'] },
+  { id:'style',        name:'Style Street',      type:'Budget Fashion',           emoji:'🛍️', tag:'Budget',  bg:'#e8f5e9', cats:['Sarees','Tops','Kurtis','Accessories'] },
+  { id:'shoezone',     name:'Shoe Zone',         type:'Footwear',                 emoji:'👟', tag:'New',     bg:'#ede7f6', cats:['Sneakers','Formal Shoes','Heels','Sandals'] },
+  { id:'trend',        name:'Trendsetters',      type:'Trendy Casuals',           emoji:'🌟', tag:'Hot',     bg:'#fff8e1', cats:['Casual Wear','Party Wear','Western','Ethnic'] },
+];
+
+const PRODUCTS = {
+  'Sarees':[
+    {id:'sa1',name:'Kanjivaram Silk Saree',sub:'Pure Silk · Red & Gold',price:12500,orig:15000,emoji:'🔴',badge:'Bestseller'},
+    {id:'sa2',name:'Banarasi Brocade Saree',sub:'Gold Motifs · Rich Weave',price:9200,orig:12000,emoji:'🟠',badge:null},
+    {id:'sa3',name:'Cotton Tant Saree',sub:'Pure Cotton · Green',price:1800,orig:2400,emoji:'💚',badge:'New'},
+    {id:'sa4',name:'Patola Silk Saree',sub:'Double Ikat · Multicolor',price:18000,orig:22000,emoji:'🌈',badge:'Limited'},
+    {id:'sa5',name:'Chanderi Saree',sub:'Chanderi Silk · Cream',price:3500,orig:4500,emoji:'🤍',badge:null},
+    {id:'sa6',name:'Mysore Silk Saree',sub:'Pure Silk · Blue',price:6500,orig:8000,emoji:'💙',badge:'Top Pick'},
+    {id:'sa7',name:'Pochampally Ikat',sub:'Geometric Patterns · Vibrant',price:6800,orig:9000,emoji:'🌀',badge:'Trending'},
+    {id:'sa8',name:'Gadwal Silk Saree',sub:'Temple Border · Contrast Pallu',price:7200,orig:9500,emoji:'💛',badge:null},
+    {id:'sa9',name:'Uppada Silk Saree',sub:'Extra Lightweight Pattu',price:11000,orig:14000,emoji:'🌸',badge:'Premium'},
+    {id:'sa10',name:'Dharmavaram Silk',sub:'Bold Colors · Heavy Zari',price:8800,orig:11500,emoji:'🟣',badge:null},
+    {id:'sa11',name:'Narayanpet Cotton',sub:'Traditional Checks & Stripes',price:1800,orig:2500,emoji:'🟫',badge:'Budget'},
+    {id:'sa12',name:'Kalamkari Print Saree',sub:'Hand-Painted Floral Motifs',price:3500,orig:4800,emoji:'🌺',badge:'New'},
+    {id:'sa13',name:'Tant Bengal Cotton',sub:'Lightweight Summer Saree',price:1600,orig:2200,emoji:'🟢',badge:null},
+    {id:'sa14',name:'Jamdani Muslin',sub:'Fine Muslin with Woven Motifs',price:5500,orig:7200,emoji:'🔵',badge:null},
+    {id:'sa15',name:'Paithani Silk',sub:'Peacock & Lotus · Maharashtra',price:15000,orig:20000,emoji:'🦚',badge:'Exclusive'},
+    {id:'sa16',name:'Kasavu Kerala Saree',sub:'Off-White with Gold Border',price:4200,orig:5800,emoji:'🟡',badge:null},
+    {id:'sa17',name:'Bandhani Tie-Dye',sub:'Colorful Rajasthani Tie-Dye',price:2800,orig:3800,emoji:'🟣',badge:'Popular'},
+    {id:'sa18',name:'Kota Doria Silk',sub:'Fine Mesh-Like Weave',price:4000,orig:5500,emoji:'⬜',badge:null},
+    {id:'sa19',name:'Sambalpuri Silk',sub:'Traditional Odisha Ikat Weave',price:6200,orig:8500,emoji:'🟠',badge:null},
+    {id:'sa20',name:'Leheriya Rajasthani',sub:'Diagonal Wave Patterns',price:2500,orig:3400,emoji:'🌊',badge:null},
+  ],
+  'Silk Sarees':[
+    {id:'ss1',name:'Kanjivaram Pure Silk',sub:'Zari Work · Maroon',price:14000,orig:18000,emoji:'🔴',badge:'Premium'},
+    {id:'ss2',name:'Bridal Kanjivaram',sub:'Heavy Bridal Silk · Gold Zari',price:28000,orig:38000,emoji:'👰',badge:'Exclusive'},
+    {id:'ss3',name:'Uppada Silk Saree',sub:'Light Weight · Pink',price:11000,orig:14000,emoji:'🌸',badge:'Trending'},
+    {id:'ss4',name:'Gadwal Silk Saree',sub:'Zari Border · Yellow',price:7800,orig:10000,emoji:'💛',badge:null},
+    {id:'ss5',name:'Soft Silk Saree',sub:'Lightweight Everyday Silk',price:6500,orig:9000,emoji:'🩵',badge:null},
+    {id:'ss6',name:'Tissue Silk Saree',sub:'Shimmery Tissue Silk',price:8800,orig:12000,emoji:'✨',badge:'Trending'},
+    {id:'ss7',name:'Double Shade Silk',sub:'Dual Color · Contrast Border',price:9500,orig:13000,emoji:'🌈',badge:'Popular'},
+    {id:'ss8',name:'Organza Silk',sub:'Sheer Organza with Embroidery',price:11000,orig:15000,emoji:'🤍',badge:'Premium'},
+    {id:'ss9',name:'Mulberry Silk',sub:'Pure Mulberry Silk Saree',price:16000,orig:22000,emoji:'🌿',badge:'Premium'},
+    {id:'ss10',name:'Patola Silk',sub:'Double Ikat Patola Weave',price:22000,orig:30000,emoji:'💎',badge:'Exclusive'},
+    {id:'ss11',name:'Crepe Silk',sub:'Smooth Crepe for Office Wear',price:5800,orig:8000,emoji:'🟣',badge:null},
+    {id:'ss12',name:'Tussar Silk',sub:'Natural Tussar · Tribal Print',price:6800,orig:9500,emoji:'🟤',badge:null},
+    {id:'ss13',name:'Meenakari Silk',sub:'Hand-Painted Meenakari Work',price:12000,orig:16500,emoji:'🎨',badge:null},
+    {id:'ss14',name:'Pochampally Silk',sub:'Traditional Ikat Silk',price:7800,orig:10500,emoji:'🌀',badge:null},
+    {id:'ss15',name:'Zardosi Silk',sub:'Heavy Zardosi Embroidery',price:19000,orig:26000,emoji:'⭐',badge:'Premium'},
+  ],
+  'Cotton Sarees':[
+    {id:'cs1',name:'Chettinad Cotton',sub:'Handloom · Checks',price:2200,orig:2900,emoji:'🟫',badge:'Bestseller'},
+    {id:'cs2',name:'Kalamkari Saree',sub:'Hand Painted · Floral',price:3100,orig:4000,emoji:'🌺',badge:null},
+    {id:'cs3',name:'Khadi Cotton Saree',sub:'Handspun · White',price:1500,orig:2000,emoji:'🤍',badge:'Eco'},
+    {id:'cs4',name:'Jamdani Cotton',sub:'Fine Jamdani Weave',price:3800,orig:5200,emoji:'🔵',badge:'Artisan'},
+    {id:'cs5',name:'Tant Saree',sub:'Traditional Bengali Tant',price:1800,orig:2500,emoji:'⬜',badge:null},
+    {id:'cs6',name:'Mangalagiri Cotton',sub:'Famous Andhra Cotton',price:2800,orig:3800,emoji:'🟢',badge:null},
+    {id:'cs7',name:'Venkatagiri Cotton',sub:'Sheer Fine Cotton',price:3200,orig:4400,emoji:'🩵',badge:null},
+    {id:'cs8',name:'Ikat Cotton',sub:'Vibrant Ikat Patterns',price:3500,orig:4800,emoji:'🌈',badge:'Trending'},
+    {id:'cs9',name:'Block Print Cotton',sub:'Rajasthani Block Print',price:2200,orig:3000,emoji:'🌺',badge:null},
+    {id:'cs10',name:'Bagru Print Cotton',sub:'Natural Dye Bagru Print',price:2400,orig:3300,emoji:'🟤',badge:null},
+  ],
+  'Shirts':[
+    {id:'sh1',name:'Oxford Cotton Shirt',sub:'Slim Fit · White',price:1299,orig:1800,emoji:'🤍',badge:'Bestseller'},
+    {id:'sh2',name:'Linen Casual Shirt',sub:'Regular Fit · Sky Blue',price:999,orig:1400,emoji:'💙',badge:null},
+    {id:'sh3',name:'Check Flannel Shirt',sub:'Relaxed · Green Check',price:849,orig:1200,emoji:'🟩',badge:'Sale'},
+    {id:'sh4',name:'Mandarin Collar Shirt',sub:'Slim · Black',price:1499,orig:1900,emoji:'🖤',badge:'New'},
+    {id:'sh5',name:'Printed Casual Shirt',sub:'Regular · Floral Print',price:749,orig:1100,emoji:'🌺',badge:null},
+    {id:'sh6',name:'Chambray Shirt',sub:'Lightweight Denim Look',price:1099,orig:1500,emoji:'🟦',badge:null},
+    {id:'sh7',name:'Poplin Formal Shirt',sub:'Crisp Poplin for Office',price:1199,orig:1700,emoji:'🤍',badge:null},
+    {id:'sh8',name:'Twill Stripe Shirt',sub:'Classic Stripe Twill',price:1099,orig:1500,emoji:'🔵',badge:null},
+    {id:'sh9',name:'Tencel Shirt',sub:'Eco-Friendly Tencel Fabric',price:1599,orig:2200,emoji:'🌿',badge:'Eco'},
+    {id:'sh10',name:'Polo Collar Shirt',sub:'Smart Casual Polo',price:899,orig:1300,emoji:'🟢',badge:null},
+    {id:'sh11',name:'Batik Print Shirt',sub:'Resort-Wear Batik Print',price:999,orig:1400,emoji:'🌺',badge:null},
+    {id:'sh12',name:'Hawaiian Print Shirt',sub:'Fun Tropical Print',price:749,orig:1100,emoji:'🌴',badge:'Fun'},
+    {id:'sh13',name:'Solid Satin Shirt',sub:'Smooth Satin for Parties',price:1799,orig:2400,emoji:'✨',badge:'Premium'},
+    {id:'sh14',name:'Denim Shirt',sub:'Classic Denim Shirt',price:1299,orig:1800,emoji:'💙',badge:null},
+    {id:'sh15',name:'Corduroy Shirt',sub:'Textured Corduroy · Winters',price:1499,orig:2000,emoji:'🟫',badge:null},
+    {id:'sh16',name:'Herringbone Shirt',sub:'Textured Herringbone Weave',price:1399,orig:1900,emoji:'⬜',badge:null},
+    {id:'sh17',name:'Kurta Style Shirt',sub:'Fusion Kurta-Shirt Hybrid',price:1099,orig:1500,emoji:'🟤',badge:'Trending'},
+    {id:'sh18',name:'Waffle Knit Shirt',sub:'Casual Waffle Knit',price:899,orig:1200,emoji:'🟫',badge:null},
+    {id:'sh19',name:'Dobby Texture Shirt',sub:'Self-Texture Dobby',price:1299,orig:1800,emoji:'🩵',badge:null},
+    {id:'sh20',name:'Linen Mandarin',sub:'Linen Mandarin Collar',price:1399,orig:1900,emoji:'🤍',badge:null},
+  ],
+  'Pants':[
+    {id:'p1',name:'Slim Chino',sub:'Khaki · Slim Fit',price:1399,orig:1900,emoji:'🟤',badge:null},
+    {id:'p2',name:'Formal Trouser Black',sub:'Classic Black Formal',price:1299,orig:1700,emoji:'🖤',badge:'Bestseller'},
+    {id:'p3',name:'Denim Jeans',sub:'Blue · Slim Fit',price:1599,orig:2100,emoji:'💙',badge:'New'},
+    {id:'p4',name:'Cargo Pants',sub:'Multi-Pocket · Olive',price:1799,orig:2400,emoji:'🟢',badge:'Trending'},
+    {id:'p5',name:'Track Pants',sub:'Comfortable Daily Wear',price:899,orig:1200,emoji:'⬛',badge:null},
+    {id:'p6',name:'Jogger Pants',sub:'Tapered Jogger · Casual',price:999,orig:1400,emoji:'🩶',badge:null},
+    {id:'p7',name:'Linen Pants',sub:'Breathable Linen Trousers',price:1299,orig:1800,emoji:'🤍',badge:null},
+    {id:'p8',name:'Corduroy Pants',sub:'Soft Corduroy Cord Pants',price:1499,orig:2000,emoji:'🟤',badge:null},
+    {id:'p9',name:'Chino Shorts',sub:'Smart Chino Shorts',price:899,orig:1300,emoji:'🟫',badge:null},
+    {id:'p10',name:'Denim Shorts',sub:'Casual Denim Cut-offs',price:799,orig:1100,emoji:'💙',badge:null},
+    {id:'p11',name:'Board Shorts',sub:'Beach-Ready Board Shorts',price:699,orig:1000,emoji:'🌊',badge:null},
+    {id:'p12',name:'Palazzo Pants',sub:'Wide-Leg Relaxed Fit',price:1199,orig:1600,emoji:'⬜',badge:null},
+  ],
+  'T-Shirts':[
+    {id:'ts1',name:'Round Neck T-Shirt',sub:'Classic Solid Round Neck',price:499,orig:700,emoji:'⬜',badge:'Bestseller'},
+    {id:'ts2',name:'V-Neck T-Shirt',sub:'Smart V-Neck Casual',price:549,orig:780,emoji:'💙',badge:null},
+    {id:'ts3',name:'Polo T-Shirt',sub:'Pique Polo Smart Casual',price:799,orig:1100,emoji:'🟢',badge:null},
+    {id:'ts4',name:'Graphic Print Tee',sub:'Bold Graphic Print',price:649,orig:900,emoji:'🎨',badge:'Trending'},
+    {id:'ts5',name:'Striped T-Shirt',sub:'Classic Nautical Stripes',price:699,orig:980,emoji:'🔵',badge:null},
+    {id:'ts6',name:'Oversized Tee',sub:'Trendy Oversized Fit',price:599,orig:850,emoji:'⬛',badge:'New'},
+    {id:'ts7',name:'Henley Tee',sub:'Casual Henley Collar',price:699,orig:980,emoji:'🟤',badge:null},
+    {id:'ts8',name:'Full Sleeve Tee',sub:'Full Sleeve Cotton Tee',price:749,orig:1050,emoji:'🟫',badge:null},
+    {id:'ts9',name:'Sleeveless Tank',sub:'Gym-Ready Sleeveless',price:399,orig:580,emoji:'⬛',badge:null},
+    {id:'ts10',name:'Crop Tee',sub:'Trendy Crop Length',price:549,orig:780,emoji:'🩶',badge:'New'},
+  ],
+  'Formals':[
+    {id:'fm1',name:'2-Piece Suit Black',sub:'Slim-Fit Black Formal Suit',price:7999,orig:11000,emoji:'🖤',badge:'Premium'},
+    {id:'fm2',name:'3-Piece Navy Suit',sub:'Classic Navy 3-Piece Suit',price:9499,orig:13000,emoji:'💙',badge:'Premium'},
+    {id:'fm3',name:'Blazer Charcoal',sub:'Smart Charcoal Blazer',price:4999,orig:7000,emoji:'🩶',badge:null},
+    {id:'fm4',name:'Formal Co-ord Set',sub:'Matching Shirt + Pant Set',price:2499,orig:3500,emoji:'🤍',badge:'Popular'},
+    {id:'fm5',name:'Nehru Suit',sub:'Traditional Nehru Collar Suit',price:5999,orig:8200,emoji:'🟫',badge:null},
+    {id:'fm6',name:'Waistcoat Set',sub:'Formal Waistcoat + Trousers',price:3999,orig:5500,emoji:'⬛',badge:null},
+    {id:'fm7',name:'Tuxedo Set',sub:'Classic Black Tuxedo',price:12999,orig:18000,emoji:'🖤',badge:'Exclusive'},
+    {id:'fm8',name:'Wedding Sherwani',sub:'Embroidered Wedding Sherwani',price:15999,orig:22000,emoji:'✨',badge:'Exclusive'},
+  ],
+  'Sneakers':[
+    {id:'sn1',name:'Air Runner X1',sub:'Lightweight Running Shoe',price:2499,orig:3200,emoji:'👟',badge:'Top Rated'},
+    {id:'sn2',name:'Urban Street Sneaker',sub:'Classic Casual Sneaker',price:1899,orig:2500,emoji:'🖤',badge:null},
+    {id:'sn3',name:'Canvas Classic',sub:'Timeless Canvas Sneaker',price:1299,orig:1700,emoji:'🤍',badge:'Trending'},
+    {id:'sn4',name:'High Top Sneaker',sub:'Bold High-Top Streetwear',price:2199,orig:3000,emoji:'🔴',badge:'New'},
+    {id:'sn5',name:'Chunky Sole Sneaker',sub:'Trendy Chunky Platform',price:2699,orig:3600,emoji:'⬜',badge:'Hot'},
+    {id:'sn6',name:'Mesh Runner',sub:'Breathable Mesh Running',price:2099,orig:2800,emoji:'🟢',badge:null},
+    {id:'sn7',name:'Retro Sneaker',sub:'90s Inspired Retro Colorblock',price:2299,orig:3100,emoji:'🌈',badge:'Vintage'},
+    {id:'sn8',name:'Low Top Court',sub:'Classic Court Shoe Style',price:1799,orig:2400,emoji:'🤍',badge:null},
+    {id:'sn9',name:'Trail Runner',sub:'Off-Road Trail Running',price:2899,orig:3900,emoji:'🟤',badge:'Popular'},
+    {id:'sn10',name:'Platform Sneaker',sub:'Elevated Platform Sole',price:2499,orig:3300,emoji:'🌸',badge:'Trendy'},
+    {id:'sn11',name:'Knit Sneaker',sub:'Sock-Like Knit Upper',price:1999,orig:2700,emoji:'🩵',badge:null},
+    {id:'sn12',name:'Vegan Leather Sneaker',sub:'Eco-Friendly Vegan Leather',price:2199,orig:3000,emoji:'🌿',badge:'Eco'},
+  ],
+  'Formal Shoes':[
+    {id:'fs1',name:'Derby Oxford Black',sub:'Classic Black Leather Derby',price:3499,orig:4500,emoji:'🥿',badge:'Premium'},
+    {id:'fs2',name:'Monk Strap Brown',sub:'Double Monk Strap Leather',price:3999,orig:5200,emoji:'🟫',badge:null},
+    {id:'fs3',name:'Brogue Oxford',sub:'Wing-Tip Brogue Pattern',price:3799,orig:5000,emoji:'🤍',badge:null},
+    {id:'fs4',name:'Chelsea Boot',sub:'Sleek Leather Chelsea Boot',price:4499,orig:6000,emoji:'🖤',badge:'Popular'},
+    {id:'fs5',name:'Loafer Penny',sub:'Classic Penny Loafer',price:2999,orig:4000,emoji:'🟤',badge:null},
+    {id:'fs6',name:'Tassel Loafer',sub:'Tassel Detail Smart Loafer',price:3299,orig:4400,emoji:'🟫',badge:null},
+    {id:'fs7',name:'Cap Toe Oxford',sub:'Elegant Cap Toe Formal',price:3599,orig:4800,emoji:'⬛',badge:null},
+    {id:'fs8',name:'Patent Leather Shoe',sub:'High-Shine Patent Formal',price:4199,orig:5600,emoji:'🖤',badge:'Premium'},
+    {id:'fs9',name:'Suede Dress Shoe',sub:'Soft Suede Dress Shoe',price:3799,orig:5000,emoji:'🩶',badge:null},
+    {id:'fs10',name:'Moccasin Loafer',sub:'Comfort Moccasin Style',price:2699,orig:3600,emoji:'🟤',badge:null},
+  ],
+  'Heels':[
+    {id:'hl1',name:'Block Heel Sandal',sub:'Comfortable Block Heel',price:1899,orig:2600,emoji:'👠',badge:'Popular'},
+    {id:'hl2',name:'Stiletto Heel',sub:'Classic Pointed Stiletto',price:2299,orig:3100,emoji:'🔴',badge:null},
+    {id:'hl3',name:'Wedge Sandal',sub:'Comfortable Wedge Sole',price:1699,orig:2300,emoji:'🟤',badge:null},
+    {id:'hl4',name:'Platform Heel',sub:'Trendy Platform Heel',price:2099,orig:2800,emoji:'🌸',badge:'Trending'},
+    {id:'hl5',name:'Kitten Heel',sub:'Elegant Low Kitten Heel',price:1799,orig:2400,emoji:'⬜',badge:null},
+    {id:'hl6',name:'Ankle Strap Heel',sub:'Secure Ankle Strap',price:2199,orig:3000,emoji:'💙',badge:null},
+    {id:'hl7',name:'Mule Heel',sub:'Easy Slip-On Mule',price:1999,orig:2700,emoji:'🤍',badge:null},
+    {id:'hl8',name:'Cone Heel',sub:'Geometric Cone Heel',price:2399,orig:3200,emoji:'🟡',badge:'New'},
+    {id:'hl9',name:'T-Strap Sandal',sub:'Classic T-Strap Design',price:1899,orig:2600,emoji:'🩷',badge:null},
+    {id:'hl10',name:'Espadrille Wedge',sub:'Summer Espadrille Wedge',price:1599,orig:2200,emoji:'🌊',badge:null},
+  ],
+  'Sandals':[
+    {id:'sd1',name:'Kolhapuri Chappal',sub:'Traditional Handcrafted',price:899,orig:1300,emoji:'🟤',badge:'Artisan'},
+    {id:'sd2',name:'Flip Flop Casual',sub:'Simple Daily Flip Flop',price:299,orig:450,emoji:'🩵',badge:null},
+    {id:'sd3',name:'Sport Sandal',sub:'Outdoor Sport Sandal',price:1299,orig:1800,emoji:'🟢',badge:null},
+    {id:'sd4',name:'Leather Sandal',sub:'Genuine Leather Sandal',price:1599,orig:2200,emoji:'🟫',badge:null},
+    {id:'sd5',name:'Slide Sandal',sub:'Trendy Wide-Strap Slide',price:999,orig:1400,emoji:'🖤',badge:'Popular'},
+    {id:'sd6',name:'Ethnic Embroidered',sub:'Embroidered Ethnic Sandal',price:1299,orig:1800,emoji:'🌺',badge:null},
+    {id:'sd7',name:'Velcro Sandal',sub:'Easy Velcro Adjustment',price:1099,orig:1500,emoji:'🔵',badge:null},
+    {id:'sd8',name:'Strappy Flat Sandal',sub:'Multi-Strap Flat Sandal',price:1099,orig:1500,emoji:'🩶',badge:null},
+    {id:'sd9',name:'Platform Sandal',sub:'Elevated Platform Sole',price:1499,orig:2000,emoji:'⬜',badge:'New'},
+    {id:'sd10',name:'Toe Ring Sandal',sub:'Delicate Toe Ring Style',price:799,orig:1100,emoji:'🌸',badge:null},
+  ],
+  'Kurtis':[
+    {id:'k1',name:'Anarkali Kurti',sub:'Cotton · Floral Print',price:899,orig:1200,emoji:'🌸',badge:'Popular'},
+    {id:'k2',name:'Straight Kurti',sub:'Rayon · Plain Blue',price:649,orig:900,emoji:'💙',badge:null},
+    {id:'k3',name:'A-Line Kurti',sub:'Georgette · Embroidered',price:1199,orig:1600,emoji:'🌺',badge:'Trending'},
+    {id:'k4',name:'Palazzo Kurti Set',sub:'Kurti with Palazzo Pants',price:1799,orig:2400,emoji:'🩷',badge:null},
+    {id:'k5',name:'Embroidered Silk Kurti',sub:'Silk with Hand Embroidery',price:2199,orig:3000,emoji:'✨',badge:'Premium'},
+    {id:'k6',name:'Chikankari Kurti',sub:'Lucknowi Chikankari Work',price:1899,orig:2600,emoji:'🤍',badge:'Bestseller'},
+    {id:'k7',name:'Bandhani Kurti',sub:'Colorful Bandhani Print',price:999,orig:1400,emoji:'🟣',badge:null},
+    {id:'k8',name:'Linen Kurti',sub:'Breathable Linen for Summers',price:1099,orig:1500,emoji:'🟤',badge:null},
+    {id:'k9',name:'Printed Rayon Kurti',sub:'Vibrant Printed Rayon',price:799,orig:1100,emoji:'🎨',badge:null},
+    {id:'k10',name:'Cotton Kurti Set',sub:'Block-Print with Palazzos',price:1199,orig:1600,emoji:'🌼',badge:null},
+  ],
+  'Lehengas':[
+    {id:'l1',name:'Bridal Lehenga',sub:'Silk · Red & Gold',price:24000,orig:32000,emoji:'👰',badge:'Premium'},
+    {id:'l2',name:'Party Lehenga',sub:'Net · Pink',price:8500,orig:12000,emoji:'🌸',badge:'New'},
+    {id:'l3',name:'Cotton Lehenga',sub:'Casual Cotton Lehenga Choli',price:2499,orig:3500,emoji:'🌺',badge:null},
+    {id:'l4',name:'Chaniya Choli',sub:'Gujarati Style Chaniya Choli',price:5999,orig:8500,emoji:'🎊',badge:'Popular'},
+    {id:'l5',name:'Kids Lehenga',sub:'Colorful Kids Lehenga Set',price:1999,orig:2800,emoji:'🦋',badge:null},
+    {id:'l6',name:'Sharara Set',sub:'Flared Sharara with Kurti',price:4999,orig:7000,emoji:'💜',badge:'Trending'},
+    {id:'l7',name:'Anarkali Set',sub:'Long Anarkali with Churidar',price:3999,orig:5500,emoji:'🌹',badge:null},
+    {id:'l8',name:'Palazzo Set',sub:'Palazzo with Embroidered Top',price:2999,orig:4200,emoji:'💙',badge:null},
+  ],
+  'Tops':[
+    {id:'tp1',name:'Crop Top Casual',sub:'Trendy Cotton Crop Top',price:399,orig:600,emoji:'🌸',badge:'Trending'},
+    {id:'tp2',name:'Off-Shoulder Top',sub:'Stylish Off-Shoulder',price:449,orig:680,emoji:'🩷',badge:null},
+    {id:'tp3',name:'Peplum Top',sub:'Flattering Peplum Cut',price:499,orig:720,emoji:'💜',badge:null},
+    {id:'tp4',name:'Tank Top',sub:'Basic Cotton Tank',price:299,orig:450,emoji:'⬜',badge:null},
+    {id:'tp5',name:'Tube Top',sub:'Strapless Tube Top',price:349,orig:520,emoji:'🔴',badge:null},
+    {id:'tp6',name:'Wrap Top',sub:'Tie-Front Wrap Top',price:549,orig:780,emoji:'🌺',badge:null},
+    {id:'tp7',name:'Spaghetti Top',sub:'Delicate Strap Top',price:329,orig:480,emoji:'🩵',badge:null},
+    {id:'tp8',name:'Ruffle Top',sub:'Layered Ruffle Top',price:549,orig:780,emoji:'🌸',badge:'New'},
+    {id:'tp9',name:'Ribbed Knit Top',sub:'Stretchy Ribbed Knit',price:399,orig:580,emoji:'⬜',badge:null},
+    {id:'tp10',name:'Bodysuit',sub:'Smooth Fitted Bodysuit',price:799,orig:1100,emoji:'⬛',badge:'Popular'},
+  ],
+  'Accessories':[
+    {id:'ac1',name:'Silk Dupatta',sub:'Pure Silk Dupatta',price:699,orig:1000,emoji:'🌸',badge:null},
+    {id:'ac2',name:'Embroidered Bag',sub:'Ethnic Embroidered Bag',price:1299,orig:1800,emoji:'🌺',badge:'Popular'},
+    {id:'ac3',name:'Potli Bag',sub:'Traditional Potli Purse',price:899,orig:1300,emoji:'🟡',badge:null},
+    {id:'ac4',name:'Jhumka Earrings',sub:'Classic Gold-Tone Jhumkas',price:499,orig:750,emoji:'✨',badge:null},
+    {id:'ac5',name:'Bangles Set',sub:'Colorful Glass Bangles',price:249,orig:400,emoji:'🟢',badge:null},
+    {id:'ac6',name:'Necklace Set',sub:'Ethnic Necklace + Earrings',price:1499,orig:2200,emoji:'💛',badge:null},
+    {id:'ac7',name:'Maang Tikka',sub:'Bridal Maang Tikka Set',price:799,orig:1200,emoji:'⭐',badge:null},
+    {id:'ac8',name:'Anklet',sub:'Delicate Silver Anklet',price:399,orig:600,emoji:'🤍',badge:null},
+    {id:'ac9',name:'Clutch Purse',sub:'Sequin Evening Clutch',price:1099,orig:1600,emoji:'✨',badge:'Trending'},
+    {id:'ac10',name:'Cotton Stole',sub:'Light Cotton Stole',price:299,orig:450,emoji:'🤍',badge:null},
+  ],
+};
+
+function genProds(cat, n=10){
+  const emojis=['👗','🥻','👘','🩱','👚','👕','🧥','👡','👠','🥿'];
+  return Array.from({length:n},(_,i)=>{
+    const p=Math.floor(Math.random()*3000)+500;
+    return {id:`g${i}`,name:`${cat} Style ${i+1}`,sub:`Premium Quality`,price:p,orig:Math.floor(p*1.3),emoji:emojis[i%emojis.length],badge:i===0?'Bestseller':null};
+  });
+}
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let S = { store:null, cat:null, cart:[] };
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+function launchApp(){
+  document.getElementById('landing').classList.add('exit');
+  setTimeout(()=>{
+    document.getElementById('landing').style.display='none';
+    document.getElementById('app').classList.add('show');
+    setTimeout(welcome, 300);
+  },500);
+}
+
+function goHome(){
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('landing').style.display='flex';
+  setTimeout(()=>document.getElementById('landing').classList.remove('exit'),50);
+  document.getElementById('msgs').innerHTML='<div class="date-sep"><span>Today</span></div>';
+  S={store:null,cat:null,cart:[]};
+}
+
+// ══════════════════════════════════════════
+//  WELCOME
+// ══════════════════════════════════════════
+function welcome(){
+  typing(1300,()=>{
+    inMsg(`👋 *Vanakkam!* Welcome to *ThreadRush!*\n\nShop from the best local stores. Delivered in *2 hours* 🚀\n\n✅ Try 3 items at home\n✅ Keep what you love\n✅ Return the rest — FREE!`);
+    setTimeout(()=>{
+      typing(900,()=>{
+        inMsg(`Which store would you like to browse? 🏪`);
+        addRaw(storeGrid());
+      });
+    },500);
+  });
+}
+
+// ══════════════════════════════════════════
+//  STORE SELECTION
+// ══════════════════════════════════════════
+function storeGrid(){
+  return `<div class="store-grid mw in">${STORES.map(s=>`
+    <div class="sc" onclick="pickStore('${s.id}')">
+      <div class="sc-img" style="background:${s.bg}">${s.emoji}</div>
+      <div class="sc-body">
+        <div class="sc-name">${s.name}</div>
+        <div class="sc-type">${s.type}</div>
+        <div class="sc-tag">${s.tag}</div>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function pickStore(id){
+  const st=STORES.find(s=>s.id===id); if(!st) return;
+  S.store=st; S.cart=[];
+  outMsg(`${st.emoji} ${st.name}`);
+  typing(1000,()=>{
+    inMsg(`Great choice! 🎉 *${st.name}*\n\n📍 Pickup ready in *15 mins*\n🚚 Delivery in *under 2 hours*\n⭐ Rated *4.8/5*\n\nWhich section? 👇`);
+    const cols=['#fff3e0','#e8f5e9','#e3f2fd','#fce4ec','#ede7f6','#fff8e1'];
+    const icons=['👗','👔','👟','🌸','🛍️','✨'];
+    addRaw(`<div class="cat-list mw in">${st.cats.map((c,i)=>{
+      const cnt=(PRODUCTS[c]||[]).length||Math.floor(Math.random()*800)+100;
+      return `<button class="cb" onclick="pickCat('${c}')">
+        <div class="cb-icon" style="background:${cols[i%cols.length]}">${icons[i%icons.length]}</div>
+        <div class="cb-info"><div class="cb-name">${c}</div><div class="cb-count">${cnt}+ items</div></div>
+        <span class="cb-arrow">›</span>
+      </button>`;
+    }).join('')}</div>`);
+  });
+}
+
+// ══════════════════════════════════════════
+//  CATEGORY → PRODUCTS
+// ══════════════════════════════════════════
+function pickCat(cat){
+  S.cat=cat; S.cart=[];
+  outMsg(`👆 ${cat}`);
+  const prods=PRODUCTS[cat]||genProds(cat,6);
+  typing(1100,()=>{
+    inMsg(`Here are *${cat}* from *${S.store.name}* 🛍️\n\nSelect up to *3 items* to try at home! 💝`);
+    setTimeout(()=>{
+      addRaw(`<div class="mw in"><div class="hint">💡 <b>How it works:</b> Pick up to 3 → We deliver → Try at home → Pay only for what you keep → Return rest FREE</div></div>`);
+      // Products
+      addRaw(`<div class="prod-list mw in" id="plist">${prods.map((p,i)=>`
+        <div class="pc" id="pc-${p.id}" onclick="toggleProd('${p.id}')" style="animation-delay:${i*0.07}s">
+          <div class="pc-img" style="background:linear-gradient(135deg,#f8f9fa,#e9ecef)">
+            <span class="pc-emoji">${p.emoji}</span>
+            ${p.badge?`<span class="pc-badge">${p.badge}</span>`:''}
+            <span class="pc-check">✓</span>
+          </div>
+          <div class="pc-info">
+            <div class="pc-name">${p.name}</div>
+            <div class="pc-sub">${p.sub}</div>
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">
+              <span class="pc-price">₹${p.price.toLocaleString('en-IN')}</span>
+              <span class="pc-orig">₹${p.orig.toLocaleString('en-IN')}</span>
+              <span class="pc-off">${Math.round((1-p.price/p.orig)*100)}% OFF</span>
+            </div>
+          </div>
+        </div>`).join('')}</div>`);
+      // Counter
+      addRaw(`<div class="mw in" id="counter-wrap">
+        <div style="padding:4px 0"><span class="sel-counter" id="sel-counter">🛒 0 of 3 in cart</span></div>
+        <button class="confirm-btn" id="proc-btn" onclick="proceedCart()" disabled>🛒 Proceed to Checkout</button>
+      </div>`);
+      scrollMsgs();
+    },300);
+  });
+}
+
+// ══════════════════════════════════════════
+//  CART
+// ══════════════════════════════════════════
+function toggleProd(id){
+  const card=document.getElementById(`pc-${id}`);
+  const inCart=S.cart.includes(id);
+  if(inCart){ S.cart=S.cart.filter(x=>x!==id); card.classList.remove('sel'); }
+  else{
+    if(S.cart.length>=3){ flashLimit(); return; }
+    S.cart.push(id); card.classList.add('sel');
+  }
+  updateCounter();
+}
+function flashLimit(){
+  const c=document.getElementById('sel-counter');
+  c.style.background='#f44336'; c.textContent='⚠️ Max 3 items!';
+  setTimeout(()=>{ c.style.background=''; updateCounter(); },1600);
+}
+function updateCounter(){
+  const n=S.cart.length;
+  const c=document.getElementById('sel-counter');
+  const b=document.getElementById('proc-btn');
+  if(c){ const cs=['','#4caf50','#1976d2','#7b1fa2']; c.style.background=n?cs[n]:''; c.textContent=`🛒 ${n} of 3 in cart`; }
+  if(b) b.disabled=n===0;
+}
+
+function proceedCart(){
+  if(!S.cart.length) return;
+  const allP=Object.values(PRODUCTS).flat();
+  const items=S.cart.map(id=>allP.find(p=>p.id===id)||{id,name:'Item',price:999,orig:1299,emoji:'🛍️',sub:''});
+  const total=items.reduce((s,i)=>s+i.price,0);
+  outMsg(`✅ Selected ${S.cart.length} item${S.cart.length>1?'s':''}! Proceeding…`);
+  typing(1200,()=>{
+    inMsg(`Perfect! *${items.length} item${items.length>1?'s':''}* selected 🎉\n\nHere's your order 👇`);
+    addRaw(`<div class="mw in"><div class="cart-card">
+      <div class="cart-hd"><span>🛒 Try-On Order</span><span style="font-weight:400;font-size:12px;color:var(--subtext)">${items.length} item${items.length>1?'s':''}</span></div>
+      ${items.map(it=>`<div class="ci"><span class="ci-em">${it.emoji}</span><div><div class="ci-name">${it.name}</div><div class="ci-price">₹${it.price.toLocaleString('en-IN')}</div></div></div>`).join('')}
+      <div class="cart-total"><span>Pay only what you keep</span><span style="color:var(--green-dark)">₹${items[0].price.toLocaleString('en-IN')}–₹${total.toLocaleString('en-IN')}</span></div>
+      <div class="cart-note">🚚 Free delivery · Try at home · Return rest FREE</div>
+    </div></div>`);
+    setTimeout(()=>{
+      inMsg(`📍 *Select your delivery address:*`);
+      addRaw(`<div class="qrs mw in">
+        <button class="qr" onclick="pickAddr('Home – Anna Nagar, Chennai')">🏠 Home – Anna Nagar</button>
+        <button class="qr" onclick="pickAddr('Office – T.Nagar, Chennai')">🏢 Office – T.Nagar</button>
+        <button class="qr" onclick="pickAddr('Custom Address')">📍 Enter New Address</button>
+      </div>`);
+      scrollMsgs();
+    },600);
+  });
+}
+
+function pickAddr(addr){
+  outMsg(`📍 ${addr}`);
+  typing(900,()=>{
+    inMsg(`Delivering to *${addr}* 📍\n\nChoose time slot:`);
+    addRaw(`<div class="qrs mw in">
+      <button class="qr" onclick="pickTime('ASAP – within 2 hours')">⚡ ASAP (2 hrs)</button>
+      <button class="qr" onclick="pickTime('Today 4–6 PM')">🌅 Today 4–6 PM</button>
+      <button class="qr" onclick="pickTime('Today 6–8 PM')">🌆 Today 6–8 PM</button>
+      <button class="qr" onclick="pickTime('Tomorrow Morning')">🌤️ Tomorrow Morning</button>
+    </div>`);
+    scrollMsgs();
+  });
+}
+
+function pickTime(slot){
+  outMsg(`⏰ ${slot}`);
+  typing(900,()=>{
+    inMsg(`Almost there! Choose payment method:\n\n💡 *You only pay for what you keep!*`);
+    addRaw(`<div class="qrs mw in">
+      <button class="qr" onclick="placeOrder('UPI – GPay/PhonePe')">💸 UPI – GPay</button>
+      <button class="qr" onclick="placeOrder('Cash on Delivery')">💵 Cash on Delivery</button>
+      <button class="qr" onclick="placeOrder('Card at Delivery')">💳 Card at Delivery</button>
+    </div>`);
+    scrollMsgs();
+  });
+}
+
+function placeOrder(method){
+  outMsg(`💳 ${method}`);
+  typing(1400,()=>{
+    const oid='TR'+Math.floor(Math.random()*900000+100000);
+    inMsg(`🎉 *Order Confirmed!* #${oid}\n\nYour clothes are on their way! 🚀`);
+    addRaw(`<div class="mw in"><div class="tracker">
+      <div class="tr-hd"><div class="tr-icon">🛵</div><div><div class="tr-title">Order #${oid}</div><div class="tr-sub">ETA: ~1h 45min</div></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:28%"></div></div>
+      <div class="step">
+        <div class="step-ind"><div class="sdot done">✓</div><div class="sline done"></div></div>
+        <div><div class="s-name">Order Confirmed</div><div class="s-det">Just now</div></div>
+      </div>
+      <div class="step">
+        <div class="step-ind"><div class="sdot active">⟳</div><div class="sline"></div></div>
+        <div><div class="s-name">Store Packing</div><div class="s-det">${S.store?.name||'Store'} preparing · ~15 min</div></div>
+      </div>
+      <div class="step">
+        <div class="step-ind"><div class="sdot pending">3</div><div class="sline"></div></div>
+        <div><div class="s-name">Out for Delivery</div><div class="s-det">Partner assigned · ~45 min</div></div>
+      </div>
+      <div class="step">
+        <div class="step-ind"><div class="sdot pending">4</div></div>
+        <div><div class="s-name">Delivered 🎉</div><div class="s-det">Try on · pay only for what you keep</div></div>
+      </div>
+    </div></div>`);
+    setTimeout(()=>{
+      addRaw(`<div class="mw in"><div class="del-banner"><span class="del-em">🏍️</span><div><div class="del-title">Rajan is your delivery partner</div><div class="del-sub">⭐ 4.9 · 230+ deliveries</div></div></div></div>`);
+      setTimeout(()=>{
+        inMsg(`🧾 *SMS confirmation* sent!\n\nWhen delivery arrives:\n• Try all ${S.cart.length} item${S.cart.length>1?'s':''}\n• Keep what you love\n• Return rest to delivery partner\n• Pay via ${method}\n\n*Thank you for shopping ThreadRush!* 🙏`);
+        addRaw(`<div class="qrs mw in">
+          <button class="qr" onclick="browseMore()">🛍️ Browse More</button>
+          <button class="qr" onclick="trackOrd()">📍 Track Order</button>
+          <button class="qr" onclick="support()">💬 Support</button>
+        </div>`);
+        scrollMsgs();
+      },800);
+    },600);
+  });
+}
+
+// ══════════════════════════════════════════
+//  EXTRAS
+// ══════════════════════════════════════════
+function browseMore(){ outMsg('🛍️ Browse More'); S={store:null,cat:null,cart:[]}; typing(700,()=>{ inMsg('Which store? 🏪'); addRaw(storeGrid()); }); }
+function trackOrd(){ outMsg('📍 Track Order'); typing(700,()=>{ inMsg(`🔄 *Live:* Partner near Anna Salai\n📍 ETA: *1h 30 min*\n🔔 Notification when 10 min away!`); }); }
+function support(){ outMsg('💬 Support'); typing(700,()=>{ inMsg(`Support team ready! 💪\n\n📞 *1800-THREAD* (toll-free)\n💬 Chat: right here!\n📧 help@threadrush.in\n\n⚡ Avg response: 2 mins`); }); }
+
+// ══════════════════════════════════════════
+//  USER INPUT
+// ══════════════════════════════════════════
+function onKey(e){ if(e.key==='Enter') onSend(); }
+function onSend(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim(); if(!txt) return;
+  inp.value=''; outMsg(txt); processInput(txt.toLowerCase());
+}
+
+function processInput(t){
+  const sm=STORES.find(s=>t.includes(s.name.toLowerCase())||t.includes(s.id));
+  if(sm){ pickStore(sm.id); return; }
+  const allCats=STORES.flatMap(s=>s.cats);
+  const cm=allCats.find(c=>t.includes(c.toLowerCase()));
+  if(cm&&S.store){ pickCat(cm); return; }
+  if(/hi|hello|start|shop|store|browse|vanakkam/.test(t)){ typing(700,()=>{ inMsg('Which store? 🏪'); addRaw(storeGrid()); }); return; }
+  if(/track|order/.test(t)){ trackOrd(); return; }
+  if(/help|support/.test(t)){ support(); return; }
+  if(/saree|silk/.test(t)){ typing(700,()=>{ inMsg(`Which store's sarees? 🥻`); addRaw(`<div class="qrs mw in"><button class="qr" onclick="S.store=STORES[0];pickCat('Sarees')">🏛️ Pothys</button><button class="qr" onclick="S.store=STORES[1];pickCat('Silk Sarees')">✨ Chennai Silks</button><button class="qr" onclick="S.store=STORES[3];pickCat('Sarees')">🛍️ Style Street</button></div>`); }); return; }
+  if(/shoe|footwear|sneaker/.test(t)){ S.store=STORES[4]; pickCat('Sneakers'); return; }
+  if(/shirt|men|pant/.test(t)){ S.store=STORES[2]; pickCat('Shirts'); return; }
+  typing(700,()=>{
+    inMsg(`I can help you:\n\n🏪 Type a *store name*\n👗 Type *sarees*\n👔 Type *shirts* or *pants*\n👟 Type *shoes*\n📍 Type *track*\n💬 Type *help*`);
+    addRaw(storeGrid());
+  });
+}
+
+// ══════════════════════════════════════════
+//  UI HELPERS
+// ══════════════════════════════════════════
+function now(){ return new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true}); }
+function fmt(t){ return t.replace(/\*([^*]+)\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); }
+
+function inMsg(t){
+  const w=document.createElement('div'); w.className='mw in';
+  w.innerHTML=`<div class="bub in">${fmt(t)}</div><div class="bub-time">ThreadRush AI · ${now()}</div>`;
+  document.getElementById('msgs').appendChild(w); scrollMsgs();
+}
+function outMsg(t){
+  const w=document.createElement('div'); w.className='mw out';
+  w.innerHTML=`<div class="bub out">${fmt(t)}</div><div class="bub-time">${now()} <span class="tick">✓✓</span></div>`;
+  document.getElementById('msgs').appendChild(w); scrollMsgs();
+}
+function addRaw(html){
+  const div=document.createElement('div'); div.innerHTML=html;
+  document.getElementById('msgs').appendChild(div.firstChild); scrollMsgs();
+}
+function typing(ms, cb){
+  const msgs=document.getElementById('msgs');
+  const el=document.createElement('div'); el.className='mw in'; el.id='typing';
+  el.innerHTML=`<div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  msgs.appendChild(el); scrollMsgs();
+  setTimeout(()=>{ el.remove(); cb&&cb(); },ms);
+}
+function scrollMsgs(){ const m=document.getElementById('msgs'); m.scrollTop=m.scrollHeight; }
+
+// ══════════════════════════════════════════
+//  PWA / INSTALL BANNER
+// ══════════════════════════════════════════
+function dismissBanner(){ document.getElementById('install-banner').style.display='none'; localStorage.setItem('bannerDismissed','1'); }
+
+// Show iOS install banner after 4 seconds if on iOS Safari and not installed
+window.addEventListener('load',()=>{
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari=/safari/i.test(navigator.userAgent)&&!/chrome/i.test(navigator.userAgent);
+  const isStandalone=window.navigator.standalone;
+  const dismissed=localStorage.getItem('bannerDismissed');
+  if(isIOS && isSafari && !isStandalone && !dismissed){
+    setTimeout(()=>{ document.getElementById('install-banner').style.display='block'; },4000);
+  }
+});
+
+// PWA single-file mode - no external SW needed
+</script>
+</body>
+</html>
